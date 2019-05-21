@@ -33,17 +33,17 @@
   <url>http://turbine.apache.org/fulcrum/fulcrum-crypto</url>
   
   <!-- Required for staging to work -->
-    <distributionManagement>
-        <site>
-            <id>turbine.apache.org</id>
-            <url>https://turbine.apache.org/fulcrum/fulcrum-crypto/</url>
-        </site>
-    </distributionManagement>
+  <distributionManagement>
+    <site>
+      <id>turbine.apache.org</id>
+      <url>https://turbine.apache.org/fulcrum/fulcrum-crypto/</url>
+    </site>
+  </distributionManagement>
 		
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/turbine/fulcrum/trunk/crypto/</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/turbine/fulcrum/trunk/crypto/</developerConnection>
-    <url>http://svn.apache.org/viewvc/turbine/fulcrum/trunk/crypto/</url>
+    <url>http://svn.apache.org/viewvc/turbine/fulcrum/tags/fulcrum-crypto-1.0.8</url>
   </scm>
 
   <developers>
