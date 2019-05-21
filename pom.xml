@@ -42,7 +42,7 @@
 		
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/turbine/fulcrum/trunk/crypto/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/turbine/fulcrum/trunk/crypto/</developerConnection>
+    <developerConnection>scm:svn: https://svn.apache.org/repos/asf/turbine/fulcrum/tags/fulcrum-crypto-1.0.8</developerConnection>
     <url>http://svn.apache.org/viewvc/turbine/fulcrum/tags/fulcrum-crypto-1.0.8</url>
   </scm>
 
