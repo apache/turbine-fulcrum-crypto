@@ -43,7 +43,8 @@
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/turbine-fulcrum-crypto.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/turbine-fulcrum-crypto.git</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf/turbine-fulcrum-crypto.git</url>
+     <url>https://github.com/apache/${turbine.site.path}/tree/${project.scm.tag}</url>
+     <tag>HEAD</tag>
   </scm>
 
   <developers>
@@ -105,7 +106,7 @@
   </build>
 	
   <properties>
-    <turbine.site.path>fulcrum/fulcrum-crypto</turbine.site.path>
+    <turbine.site.path>turbine-fulcrum-crypto</turbine.site.path>
     <turbine.scmPubCheckoutDirectory>${turbine.site.cache}/fulcrum/crypto</turbine.scmPubCheckoutDirectory>
     <turbine.site.cache>${project.build.directory}/turbine-sites</turbine.site.cache>
     <siteContent.path>${project.build.directory}/staging</siteContent.path><!-- default stagingSiteURL -->
