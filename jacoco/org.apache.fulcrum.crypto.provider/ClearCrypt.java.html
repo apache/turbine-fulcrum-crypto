@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClearCrypt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Fulcrum Crypto</a> &gt; <a href="index.source.html" class="el_package">org.apache.fulcrum.crypto.provider</a> &gt; <span class="el_source">ClearCrypt.java</span></div><h1>ClearCrypt.java</h1><pre class="source lang-java linenums">package org.apache.fulcrum.crypto.provider;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * &quot;License&quot;); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.apache.fulcrum.crypto.CryptoAlgorithm;
+
+/**
+ * This is a dummy for &quot;cleartext&quot; encryption. It goes through the notions of
+ * the CryptoAlgorithm interface but actually does nothing. It can be used as a
+ * replacement for the &quot;encrypt = no&quot; setting in TurbineResources.
+ *
+ * Can be used as the default crypto algorithm
+ *
+ * @author &lt;a href=&quot;mailto:hps@intermeta.de&quot;&gt;Henning P. Schmiedehausen&lt;/a&gt;
+ * @version $Id$
+ */
+public class ClearCrypt implements CryptoAlgorithm {
+	
+	/**
+	 * Constructor
+	 */
+	public ClearCrypt() 
+<span class="fc" id="L40">	{</span>
+<span class="fc" id="L41">	}</span>
+
+	/**
+	 * This class never uses an algorithm, so this is just a dummy.
+	 *
+	 * @param cipher Cipher (ignored)
+	 */
+	public void setCipher(String cipher) 
+	{
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * This class never uses a seed, so this is just a dummy.
+	 *
+	 * @param seed Seed (ignored)
+	 */
+	public void setSeed(String seed) 
+	{
+<span class="nc" id="L59">	}</span>
+
+	/**
+	 * This method performs no encryption and will simply
+	 * return the value passed
+	 *
+	 * @param value The value to be encrypted
+	 * @return The original value
+	 * @throws Exception An Exception of the underlying implementation.
+	 */
+	public String encrypt(String value) throws Exception 
+	{
+<span class="fc" id="L71">		return value;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

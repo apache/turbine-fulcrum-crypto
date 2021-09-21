@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JavaCrypt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Fulcrum Crypto</a> &gt; <a href="index.source.html" class="el_package">org.apache.fulcrum.crypto.provider</a> &gt; <span class="el_source">JavaCrypt.java</span></div><h1>JavaCrypt.java</h1><pre class="source lang-java linenums">package org.apache.fulcrum.crypto.provider;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * &quot;License&quot;); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.security.MessageDigest;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.fulcrum.crypto.CryptoAlgorithm;
+
+/**
+ * Implements the normal java.security.MessageDigest stream cipers. Base64
+ * strings returned by this provider are correctly padded to multiples of four
+ * bytes. If you run into interoperability problems with other languages,
+ * especially perl and the Digest::MD5 module, note that the md5_base64 function
+ * from this package incorrectly drops the pad bytes. Use the MIME::Base64
+ * package instead.
+ *
+ * If you upgrade from Turbine 2.1 and suddently your old stored passwords no
+ * longer work, please take a look at the OldJavaCrypt provider for bug-to-bug
+ * compatibility.
+ *
+ * This provider can be used as the default crypto algorithm provider.
+ *
+ * @author &lt;a href=&quot;mailto:hps@intermeta.de&quot;&gt;Henning P. Schmiedehausen&lt;/a&gt;
+ * @version $Id$
+ */
+public class JavaCrypt implements CryptoAlgorithm 
+{
+
+	/** The default cipher */
+	public static final String DEFAULT_CIPHER = &quot;SHA&quot;;
+
+	/** The cipher to use for encryption */
+<span class="fc" id="L51">	private String cipher = null;</span>
+
+	/**
+	 * Constructor
+	 *
+	 */
+	public JavaCrypt() 
+<span class="fc" id="L58">	{</span>
+<span class="fc" id="L59">		this.cipher = DEFAULT_CIPHER;</span>
+<span class="fc" id="L60">	}</span>
+
+	/**
+	 * Setting the actual cipher requested. If not called, then the default cipher
+	 * (SHA) is used.
+	 *
+	 * This will never throw an error even if there is no provider for this cipher.
+	 * The error will be thrown by encrypt() (Fixme?)
+	 *
+	 * @see org.apache.fulcrum.crypto.CryptoAlgorithm#setCipher(java.lang.String)
+	 *
+	 * @param cipher The cipher to use.
+	 *
+	 */
+	public void setCipher(String cipher) 
+	{
+<span class="fc" id="L76">		this.cipher = cipher;</span>
+<span class="fc" id="L77">	}</span>
+
+	/**
+	 * This class never uses a seed, so this is just a dummy.
+	 *
+	 * @see org.apache.fulcrum.crypto.CryptoAlgorithm#setSeed(java.lang.String)
+	 * 
+	 * @param seed Seed (ignored)
+	 *
+	 */
+	public void setSeed(String seed) 
+	{
+		/* dummy */
+<span class="nc" id="L90">	}</span>
+
+	/**
+	 * Encrypt the supplied string with the requested cipher
+	 *
+	 * @see org.apache.fulcrum.crypto.CryptoAlgorithm#encrypt(java.lang.String)
+	 *
+	 * @param value The value to be encrypted
+	 * @return The encrypted value
+	 * @throws Exception An Exception of the underlying implementation.
+	 */
+	public String encrypt(String value) throws Exception 
+	{
+<span class="fc" id="L103">		MessageDigest md = MessageDigest.getInstance(cipher);</span>
+
+		// We need to use unicode here, to be independent of platform's
+		// default encoding. Thanks to SGawin for spotting this.
+<span class="fc" id="L107">		byte[] digest = md.digest(value.getBytes(&quot;UTF-8&quot;));</span>
+
+		// Base64-encode the digest.
+<span class="fc" id="L110">		byte[] encodedDigest = Base64.encodeBase64(digest);</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">		return (encodedDigest == null ? null : new String(encodedDigest, &quot;UTF-8&quot;));</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UnixCrypt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Fulcrum Crypto</a> &gt; <a href="index.source.html" class="el_package">org.apache.fulcrum.crypto.provider</a> &gt; <span class="el_source">UnixCrypt.java</span></div><h1>UnixCrypt.java</h1><pre class="source lang-java linenums">package org.apache.fulcrum.crypto.provider;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * &quot;License&quot;); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.Random;
+
+import org.apache.fulcrum.crypto.CryptoAlgorithm;
+
+/**
+ * Implements Standard Unix crypt(3) for use with the Crypto Service.
+ *
+ * @author &lt;a href=&quot;mailto:hps@intermeta.de&quot;&gt;Henning P. Schmiedehausen&lt;/a&gt;
+ * @version $Id$
+ */
+public class UnixCrypt implements CryptoAlgorithm 
+{
+
+	/** The seed to use */
+<span class="fc" id="L36">	private String seed = null;</span>
+
+	/** standard Unix crypt chars (64) */
+<span class="fc" id="L39">	private static final char[] SALT_CHARS = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./&quot;</span>
+<span class="fc" id="L40">			.toCharArray();</span>
+
+	/**
+	 * Constructor
+	 */
+	public UnixCrypt() 
+<span class="fc" id="L46">	{</span>
+<span class="fc" id="L47">	}</span>
+
+	/**
+	 * This class never uses anything but UnixCrypt, so it is just a dummy (Fixme:
+	 * Should we throw an exception if something is requested that we don't support?
+	 *
+	 * @param cipher Cipher (ignored)
+	 */
+	public void setCipher(String cipher) 
+	{
+		/* dummy */
+<span class="fc" id="L58">	}</span>
+
+	/**
+	 * Setting the seed for the UnixCrypt algorithm. If a null value is supplied, or
+	 * no seed is set, then a random seed is used.
+	 *
+	 * @param seed The seed value to use.
+	 */
+	public void setSeed(String seed) 
+	{
+<span class="fc" id="L68">		this.seed = seed;</span>
+<span class="fc" id="L69">	}</span>
+
+	/**
+	 * Encrypt the supplied string with the requested cipher
+	 *
+	 * @param value The value to be encrypted
+	 * @return The encrypted value
+	 * @throws Exception An Exception of the underlying implementation.
+	 */
+	public String encrypt(String value) throws Exception 
+	{
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		if (seed == null) </span>
+		{
+<span class="fc" id="L82">			Random randomGenerator = new Random();</span>
+<span class="fc" id="L83">			int numSaltChars = SALT_CHARS.length;</span>
+<span class="fc" id="L84">			StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L85">			sb.append(SALT_CHARS[Math.abs(randomGenerator.nextInt() % numSaltChars)])</span>
+<span class="fc" id="L86">					.append(SALT_CHARS[Math.abs(randomGenerator.nextInt() % numSaltChars)]).toString();</span>
+<span class="fc" id="L87">			seed = sb.toString();</span>
+		}
+
+		// use commons-codec to do the encryption
+<span class="fc" id="L91">		return org.apache.commons.codec.digest.UnixCrypt.crypt(value, seed);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
