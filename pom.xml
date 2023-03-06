@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.apache.turbine</groupId>
     <artifactId>turbine-parent</artifactId>
-    <version>11</version>
+    <version>12-SNAPSHOT</version>
     <relativePath />
   </parent>
 
@@ -82,7 +82,7 @@
 	<dependency>
 	    <groupId>commons-codec</groupId>
 	    <artifactId>commons-codec</artifactId>
-	    <version>1.13</version>
+	    <version>1.15</version>
 	</dependency>
     
     <!-- testing dependencies -->
